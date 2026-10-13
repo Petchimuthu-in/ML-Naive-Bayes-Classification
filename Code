@@ -1,0 +1,19 @@
+import pandas as pd
+from sklearn.naive_bayes import GaussianNB
+
+df = pd.read_csv("email_spam_detection.csv")
+print(df)
+
+model = GaussianNB()
+model.fit(df[["Links_Count", "Spam_Words"]], df["Spam"])
+
+print("Model trained successfully!")
+
+email = pd.DataFrame({
+    "Links_Count": [3],
+    "Spam_Words": [3]
+})
+
+prediction = model.predict(email)
+
+print("Prediction:", "Spam" if prediction[0] == 1 else "Not Spam")
